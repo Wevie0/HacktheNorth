@@ -11,15 +11,15 @@ pygame.display.set_icon(icon)
 background = pygame.image.load("tech-bg.png")
 gameFont = pygame.freetype.Font("Roboto-Regular.ttf", 48)
 
-tech = ["technology", "boolean", "robot", "computer", "loop", "database"]
+tech = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python"]
 science = ["chemistry", "biology", "atom", "cell", "element", "physics"]
 space = ["astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
 
 theme_list = [tech, science, space]
 
 theme = random.choice(theme_list)
-
 word = random.choice(theme)
+word = "chemistry"
 
 level = 1
 wrong = 0
@@ -29,66 +29,95 @@ run = True
 def findOccurrences(s, ch):
     return [i for i, letter in enumerate(s) if letter == ch]
 
+
 correct = []
+keys_chosen = []
 while run:  # Main Loop
     chosen = ''
     window.fill((255, 255, 255))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_a and 'a' not in keys_chosen:
                 chosen = 'a'
-            if event.key == pygame.K_b:
+                keys_chosen.append('a')
+            if event.key == pygame.K_b and 'b' not in keys_chosen:
                 chosen = 'b'
-            if event.key == pygame.K_c:
+                keys_chosen.append('b')
+            if event.key == pygame.K_c and 'c' not in keys_chosen:
                 chosen = 'c'
-            if event.key == pygame.K_d:
+                keys_chosen.append('c')
+            if event.key == pygame.K_d and 'd' not in keys_chosen:
                 chosen = 'd'
-            if event.key == pygame.K_e:
+                keys_chosen.append('c')
+            if event.key == pygame.K_e and 'e' not in keys_chosen:
                 chosen = 'e'
-            if event.key == pygame.K_f:
+                keys_chosen.append('e')
+            if event.key == pygame.K_f and 'f' not in keys_chosen:
                 chosen = 'f'
-            if event.key == pygame.K_g:
+                keys_chosen.append('f')
+            if event.key == pygame.K_g and 'g' not in keys_chosen:
                 chosen = 'g'
-            if event.key == pygame.K_h:
+                keys_chosen.append('g')
+            if event.key == pygame.K_h and 'h' not in keys_chosen:
                 chosen = 'h'
-            if event.key == pygame.K_i:
+                keys_chosen.append('h')
+            if event.key == pygame.K_i and 'i' not in keys_chosen:
                 chosen = 'i'
-            if event.key == pygame.K_j:
+                keys_chosen.append('i')
+            if event.key == pygame.K_j and 'j' not in keys_chosen:
                 chosen = 'j'
-            if event.key == pygame.K_k:
+                keys_chosen.append('j')
+            if event.key == pygame.K_k and 'k' not in keys_chosen:
                 chosen = 'k'
-            if event.key == pygame.K_l:
+                keys_chosen.append('k')
+            if event.key == pygame.K_l and 'l' not in keys_chosen:
                 chosen = 'l'
-            if event.key == pygame.K_m:
+                keys_chosen.append('l')
+            if event.key == pygame.K_m and 'm' not in keys_chosen:
                 chosen = 'm'
-            if event.key == pygame.K_n:
+                keys_chosen.append('m')
+            if event.key == pygame.K_n and 'n' not in keys_chosen:
                 chosen = 'n'
-            if event.key == pygame.K_o:
+                keys_chosen.append('n')
+            if event.key == pygame.K_o and 'o' not in keys_chosen:
                 chosen = 'o'
-            if event.key == pygame.K_p:
+                keys_chosen.append('o')
+            if event.key == pygame.K_p and 'p' not in keys_chosen:
                 chosen = 'p'
-            if event.key == pygame.K_q:
+                keys_chosen.append('p')
+            if event.key == pygame.K_q and 'q' not in keys_chosen:
                 chosen = 'q'
-            if event.key == pygame.K_r:
+                keys_chosen.append('q')
+            if event.key == pygame.K_r and 'r' not in keys_chosen:
                 chosen = 'r'
-            if event.key == pygame.K_s:
+                keys_chosen.append('r')
+            if event.key == pygame.K_s and 's' not in keys_chosen:
                 chosen = 's'
-            if event.key == pygame.K_t:
+                keys_chosen.append('s')
+            if event.key == pygame.K_t and 't' not in keys_chosen:
                 chosen = 't'
-            if event.key == pygame.K_u:
+                keys_chosen.append('t')
+            if event.key == pygame.K_u and 'u' not in keys_chosen:
                 chosen = 'u'
-            if event.key == pygame.K_v:
+                keys_chosen.append('u')
+            if event.key == pygame.K_v and 'v' not in keys_chosen:
                 chosen = 'v'
-            if event.key == pygame.K_w:
+                keys_chosen.append('v')
+            if event.key == pygame.K_w and 'w' not in keys_chosen:
                 chosen = 'w'
-            if event.key == pygame.K_x:
+                keys_chosen.append('w')
+            if event.key == pygame.K_x and 'x' not in keys_chosen:
                 chosen = 'x'
-            if event.key == pygame.K_y:
+                keys_chosen.append('x')
+            if event.key == pygame.K_y and 'y' not in keys_chosen:
                 chosen = 'y'
-            if event.key == pygame.K_z:
+                keys_chosen.append('y')
+            if event.key == pygame.K_z and 'z' not in keys_chosen:
                 chosen = 'z'
+                keys_chosen.append('z')
 
     window.blit(background, (0, 0))
     for i in range(len(word)):
@@ -102,4 +131,13 @@ while run:  # Main Loop
     for i in correct:
         for j in findOccurrences(word, i):
             gameFont.render_to(window, (80 * j + 10, 640), i, (135, 223, 252))
+        guessed = set(correct)
+        full_word = set(word)
+        if guessed == full_word:
+            level += 1
+            correct = []
+            keys_chosen = []
+            theme = random.choice(theme_list)
+            word = random.choice(theme)
+
     pygame.display.update()
