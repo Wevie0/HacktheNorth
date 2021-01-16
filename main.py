@@ -23,8 +23,8 @@ word = random.choice(theme)
 images = []
 for i in range(8):
   
-	
-
+def findOccurrences(s, ch):
+    return [i for i, letter in enumerate(s) if letter == ch]	
 
 level = 1
 wrong = 0
