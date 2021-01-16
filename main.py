@@ -5,11 +5,13 @@ import random
 pygame.init()
 
 window = pygame.display.set_mode((900, 700))
-pygame.display.set_caption("Hangbot")
+pygame.display.set_caption("HangBot")
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load("tech-bg.png")
 title = pygame.image.load("title-bg.png")
+loss = pygame.image.load("end.png")
+win = pygame.image.load("win.png")
 gameFont = pygame.freetype.Font("Consolas.ttf", 48)
 
 words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor", "string",
@@ -56,6 +58,11 @@ while run:  # Main Loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN and level == -1:
+            if event.key == pygame.K_RETURN:
+                nxt = False
+                nextlevel()
+                level = 1
         if event.type == pygame.MOUSEBUTTONDOWN and level == 0:
             cursor = pygame.mouse.get_pos()
             if 675 >= cursor[0] >= 225 and 525 >= cursor[1] >= 315:
@@ -143,13 +150,20 @@ while run:  # Main Loop
                 nxt = False
                 nextlevel()
 
+    if level == -1:
+        window.blit(loss, (0, 0))
+        gameFont.render_to(window, (175, 550), "Press ENTER to restart", (135, 223, 252))
     if level == 0:
         window.blit(title, (0, 0))
-
-    if level >= 1:
-        window.fill((255,255, 255))
+    if level == len(words) - 1:
+        window.blit(win, (0, 0))
+        print("H")
+    elif 1 <= level < len(words):
+        window.fill((255, 255, 255))
         window.blit(background, (0, 0))
-        if bot_step > 0:
+        if bot_step == 8:
+            level = -1
+        elif bot_step > 0:
             window.blit(images[bot_step-1], (100, 100))
         BLUE = (133, 138, 227)
         PURPLE = (97, 61, 193)
