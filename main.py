@@ -51,7 +51,7 @@ while run:  # Main Loop
                 keys_chosen.append('c')
             if event.key == pygame.K_d and 'd' not in keys_chosen:
                 chosen = 'd'
-                keys_chosen.append('c')
+                keys_chosen.append('d')
             if event.key == pygame.K_e and 'e' not in keys_chosen:
                 chosen = 'e'
                 keys_chosen.append('e')
