@@ -9,6 +9,7 @@ pygame.display.set_caption("Hangbot")
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load("tech-bg.png")
+title = pygame.image.load("title-bg.png")
 gameFont = pygame.freetype.Font("Consolas.ttf", 48)
 
 tech = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python"]
@@ -19,9 +20,8 @@ theme_list = [tech, science, space]
 
 theme = random.choice(theme_list)
 word = random.choice(theme)
-word = "chemistry"
 
-level = 1
+level = 0
 wrong = 0
 run = True
 
@@ -35,16 +35,14 @@ incorrect = []
 keys_chosen = []
 while run:  # Main Loop
     chosen = ''
-    window.fill((255, 255, 255))
-    window.blit(background, (0, 0))
-    BLUE = (133, 138, 227)
-    PURPLE = (97, 61, 193)
-    pygame.draw.rect(window, PURPLE, (390, 90, 470, 170))
-    pygame.draw.rect(window, BLUE, (400, 100, 450, 150))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and level == 0:
+            cursor = pygame.mouse.get_pos()
+            if cursor[0] >= 225 and cursor[0] <= 675 and cursor[1] >= 315 and cursor[1] <= 525:
+                level = 1
+        if event.type == pygame.KEYDOWN and level == 1:
             if event.key == pygame.K_a and 'a' not in keys_chosen:
                 chosen = 'a'
                 keys_chosen.append('a')
@@ -123,31 +121,38 @@ while run:  # Main Loop
             if event.key == pygame.K_z and 'z' not in keys_chosen:
                 chosen = 'z'
                 keys_chosen.append('z')
+    if level == 0:
+        window.blit(title, (0, 0))
 
 
-    for i in range(len(word)):
-        pygame.draw.rect(window, (135, 223, 252), (i * 80, 680, 50, 10))
-
-    if chosen in word and chosen != '':
-        correct.append(chosen)
-    elif chosen != '':
-        wrong += 1
-        incorrect.append(chosen)
-    for i in correct:
-        for j in findOccurrences(word, i):
-            gameFont.render_to(window, (80 * j + 10, 640), i, (135, 223, 252))
-        guessed = set(correct)
-        full_word = set(word)
-        if guessed == full_word:
-            level += 1
-            correct = []
-            incorrect = []
-            keys_chosen = []
-            theme = random.choice(theme_list)
-            word = random.choice(theme)
-    for i in range(len(incorrect)):
-        if i <= 10:
-            gameFont.render_to(window, (40 * i + 410, 125), incorrect[i], (135, 223, 252))
-        if i > 10:
-            gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
+    if level == 1:
+        window.fill((255, 255, 255))
+        window.blit(background, (0, 0))
+        BLUE = (133, 138, 227)
+        PURPLE = (97, 61, 193)
+        pygame.draw.rect(window, PURPLE, (390, 90, 470, 170))
+        pygame.draw.rect(window, BLUE, (400, 100, 450, 150))
+        for i in range(len(word)):
+            pygame.draw.rect(window, (135, 223, 252), (i * 80, 680, 50, 10))
+        if chosen in word and chosen != '':
+            correct.append(chosen)
+        elif chosen != '':
+            wrong += 1
+            incorrect.append(chosen)
+        for i in correct:
+            for j in findOccurrences(word, i):
+                gameFont.render_to(window, (80 * j + 10, 640), i, (135, 223, 252))
+            guessed = set(correct)
+            full_word = set(word)
+            if guessed == full_word:
+                correct = []
+                incorrect = []
+                keys_chosen = []
+                theme = random.choice(theme_list)
+                word = random.choice(theme)
+        for i in range(len(incorrect)):
+            if i <= 10:
+                gameFont.render_to(window, (40 * i + 410, 125), incorrect[i], (135, 223, 252))
+            if i > 10:
+                gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
     pygame.display.update()
