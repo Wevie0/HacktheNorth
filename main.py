@@ -1,14 +1,15 @@
 import pygame
+import pygame.freetype
 import random
 
 pygame.init()
-pygame.font.init()
 
 window = pygame.display.set_mode((900, 700))
 pygame.display.set_caption("Hangbot")
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load("tech-bg.png")
+gameFont = pygame.freetype.Font("Roboto-Regular.ttf", 48)
 
 tech = ["technology", "boolean", "robot", "computer", "loop", "database"]
 science = ["chemistry", "biology", "atom", "cell", "element", "physics"]
@@ -20,21 +21,17 @@ theme = random.choice(theme_list)
 
 word = random.choice(theme)
 
-images = []
-for i in range(8):
-  
-def findOccurrences(s, ch):
-    return [i for i, letter in enumerate(s) if letter == ch]	
-
 level = 1
 wrong = 0
-
-fps = 60
-
 run = True
 
-chosen = ''
+
+def findOccurrences(s, ch):
+    return [i for i, letter in enumerate(s) if letter == ch]
+
+correct = []
 while run:  # Main Loop
+    chosen = ''
     window.fill((255, 255, 255))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -92,13 +89,17 @@ while run:  # Main Loop
                 chosen = 'y'
             if event.key == pygame.K_z:
                 chosen = 'z'
+
     window.blit(background, (0, 0))
     for i in range(len(word)):
-        pygame.draw.rect(window, (135, 223, 252), (i * 80 + 10, 680, 50, 10))
+        pygame.draw.rect(window, (135, 223, 252), (i * 80, 680, 50, 10))
+
     if chosen in word and chosen != '':
-        print(findOccurrences(word, chosen), word, chosen)
+        correct.append(chosen)
     elif chosen != '':
         wrong += 1
         print("The letter %s is not in the word." % chosen)
-    chosen = ''
+    for i in correct:
+        for j in findOccurrences(word, i):
+            gameFont.render_to(window, (80 * j + 10, 640), i, (135, 223, 252))
     pygame.display.update()
