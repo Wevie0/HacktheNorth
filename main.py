@@ -9,7 +9,7 @@ pygame.display.set_caption("Hangbot")
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load("tech-bg.png")
-gameFont = pygame.freetype.Font("Roboto-Regular.ttf", 48)
+gameFont = pygame.freetype.Font("Consolas.ttf", 48)
 
 tech = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python"]
 science = ["chemistry", "biology", "atom", "cell", "element", "physics"]
@@ -31,11 +31,16 @@ def findOccurrences(s, ch):
 
 
 correct = []
+incorrect = []
 keys_chosen = []
 while run:  # Main Loop
     chosen = ''
     window.fill((255, 255, 255))
-
+    window.blit(background, (0, 0))
+    BLUE = (133, 138, 227)
+    PURPLE = (97, 61, 193)
+    pygame.draw.rect(window, PURPLE, (390, 90, 470, 170))
+    pygame.draw.rect(window, BLUE, (400, 100, 450, 150))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -119,7 +124,7 @@ while run:  # Main Loop
                 chosen = 'z'
                 keys_chosen.append('z')
 
-    window.blit(background, (0, 0))
+
     for i in range(len(word)):
         pygame.draw.rect(window, (135, 223, 252), (i * 80, 680, 50, 10))
 
@@ -127,7 +132,7 @@ while run:  # Main Loop
         correct.append(chosen)
     elif chosen != '':
         wrong += 1
-        print("The letter %s is not in the word." % chosen)
+        incorrect.append(chosen)
     for i in correct:
         for j in findOccurrences(word, i):
             gameFont.render_to(window, (80 * j + 10, 640), i, (135, 223, 252))
@@ -136,8 +141,13 @@ while run:  # Main Loop
         if guessed == full_word:
             level += 1
             correct = []
+            incorrect = []
             keys_chosen = []
             theme = random.choice(theme_list)
             word = random.choice(theme)
-
+    for i in range(len(incorrect)):
+        if i <= 10:
+            gameFont.render_to(window, (40 * i + 410, 125), incorrect[i], (135, 223, 252))
+        if i > 10:
+            gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
     pygame.display.update()
