@@ -203,3 +203,4 @@ while run:  # Main Loop
                 gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
         gameFont.render_to(window, (850, 650), str(level - 1), (135, 223, 252))
     pygame.display.update()
+pygame.quit()  
