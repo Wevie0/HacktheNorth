@@ -1,6 +1,7 @@
 import pygame
 import pygame.freetype
 import random
+from pygame.mixer import *
 
 pygame.init()
 
@@ -14,9 +15,16 @@ loss = pygame.image.load("end.png")
 win = pygame.image.load("win.png")
 gameFont = pygame.freetype.Font("Consolas.ttf", 48)
 
-words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor", "string",
-         "chemistry", "biology", "electron", "neutron", "proton"
-         "atom", "cell", "element", "physics", "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
+music = pygame.mixer.music.load('music.mp3')
+pygame.mixer.music.play(-1)
+
+running = True
+
+words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor",
+         "string",
+         "chemistry", "biology", "macbook" "electron", "neutron", "proton", "Oculusr "
+                                                                            "atom", "cell", "element", "physics",
+         "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
 word = random.choice(words)
 
 level = 0
@@ -24,7 +32,7 @@ run = True
 
 images = []
 for i in range(7):
-    images.append(pygame.image.load("bot%s.png" % str(i+1)))
+    images.append(pygame.image.load("bot%s.png" % str(i + 1)))
 bot_step = 0
 
 
@@ -153,6 +161,7 @@ while run:  # Main Loop
     if level == -1:
         window.blit(loss, (0, 0))
         gameFont.render_to(window, (175, 550), "Press ENTER to restart", (135, 223, 252))
+
     if level == 0:
         window.blit(title, (0, 0))
     if level == len(words) - 1:
@@ -164,7 +173,7 @@ while run:  # Main Loop
         if bot_step == 8:
             level = -1
         elif bot_step > 0:
-            window.blit(images[bot_step-1], (100, 100))
+            window.blit(images[bot_step - 1], (100, 100))
         BLUE = (133, 138, 227)
         PURPLE = (97, 61, 193)
         pygame.draw.rect(window, PURPLE, (390, 90, 470, 170))
@@ -192,3 +201,4 @@ while run:  # Main Loop
                 gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
         gameFont.render_to(window, (850, 650), str(level - 1), (135, 223, 252))
     pygame.display.update()
+
