@@ -165,7 +165,7 @@ while run:  # Main Loop
 
     if level == 0:
         window.blit(title, (0, 0))
-    if level == len(words) - 1:
+    if level == 10:
         window.blit(win, (0, 0))
         print("H")
     elif 1 <= level < len(words):
