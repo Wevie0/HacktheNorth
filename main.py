@@ -23,7 +23,7 @@ pygame.mixer.music.play(-1)
 running = True
 
 words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor",
-         "string",
+         "string", "java", "coding", "pygame", "sorting", "recursion", "function", "array", "turing", "cryptography",
          "chemistry", "biology", "macbook" "electron", "neutron", "proton",
          "atom", "cell", "element", "physics", "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
 word = random.choice(words)
