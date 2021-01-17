@@ -15,6 +15,8 @@ loss = pygame.image.load("end.png")
 win = pygame.image.load("win.png")
 gameFont = pygame.freetype.Font("Consolas.ttf", 48)
 
+soundEffect1 = pygame.mixer.Sound("level_up.wav")
+deathsound = pygame.mixer.Sound("Deathsound.wav")
 music = pygame.mixer.music.load('music.mp3')
 pygame.mixer.music.play(-1)
 
@@ -22,9 +24,8 @@ running = True
 
 words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor",
          "string",
-         "chemistry", "biology", "macbook" "electron", "neutron", "proton", "Oculusr "
-                                                                            "atom", "cell", "element", "physics",
-         "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
+         "chemistry", "biology", "macbook" "electron", "neutron", "proton",
+         "atom", "cell", "element", "physics", "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy"]
 word = random.choice(words)
 
 level = 0
@@ -172,6 +173,7 @@ while run:  # Main Loop
         window.blit(background, (0, 0))
         if bot_step == 8:
             level = -1
+            deathsound.play()
         elif bot_step > 0:
             window.blit(images[bot_step - 1], (100, 100))
         BLUE = (133, 138, 227)
@@ -193,6 +195,7 @@ while run:  # Main Loop
             guessed = set(correct)
             full_word = set(word)
             if guessed == full_word:
+                soundEffect1.play()
                 nxt = True
         for i in range(len(incorrect)):
             if i <= 10:
@@ -201,4 +204,3 @@ while run:  # Main Loop
                 gameFont.render_to(window, (40 * i - 430 + 400, 200), incorrect[i], (135, 223, 252))
         gameFont.render_to(window, (850, 650), str(level - 1), (135, 223, 252))
     pygame.display.update()
-
