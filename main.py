@@ -167,7 +167,6 @@ while run:  # Main Loop
         window.blit(title, (0, 0))
     if level == 10:
         window.blit(win, (0, 0))
-        print("H")
     elif 1 <= level < len(words):
         window.fill((255, 255, 255))
         window.blit(background, (0, 0))
