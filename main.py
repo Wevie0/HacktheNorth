@@ -24,7 +24,7 @@ running = True
 
 words = ["technology", "boolean", "robot", "computer", "loop", "database", "javascript", "python", "processor",
          "string", "java", "coding", "pygame", "sorting", "recursion", "function", "array", "turing", "cryptography",
-         "chemistry", "biology", "macbook" "electron", "neutron", "proton",
+         "chemistry", "biology", "laptop", "electron", "neutron", "proton",
          "atom", "cell", "element", "physics", "astronaut", "nebula", "stars", "moon", "satellite", "orbit", "galaxy", "supernova"]
 word = random.choice(words)
 
